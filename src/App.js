@@ -2,8 +2,8 @@ import { Route, Routes } from "react-router-dom";
 
 import Container from "@mui/material/Container";
 
-import { Header } from "./components";
-import { Home, FullPost, Registration, AddPost, Login } from "./pages";
+import { Header } from "./components/index.js";
+import { Home, FullPost, Registration, AddPost, Login } from "./pages/index.js";
 
 function App() {
   return (
