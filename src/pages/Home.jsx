@@ -31,7 +31,9 @@ export const Home = () => {
       <Grid container spacing={4}>
         <Grid xs={8} item>
           {(isPostsLoading ? [...Array(5)] : posts.items).map((obj, index) =>
-          isPostsLoading ? (<Post key={index} isLoading={true} />) : (
+          isPostsLoading ? (
+          <Post key={index} isLoading={true} />
+          ) : (
             <Post
               id={obj._id}
               title={obj.title}

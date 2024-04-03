@@ -1,10 +1,29 @@
 import React from "react";
+import { useParams } from "react-router-dom";
 
 import { Post } from "../components/Post";
 import { Index } from "../components/AddComment";
 import { CommentsBlock } from "../components/CommentsBlock";
+import axios from "axios";
 
 export const FullPost = () => {
+  const [data, setData] = React.useState();
+  const [isLoading, setLoading] = React.useState();
+
+  const { id } = useParams();
+  // Fetching data for the post with provided ID
+  React.useEffect(() => {
+    axios.get(`/posts/${id}`).then((res) => {
+      setData(res.data)
+    })
+    .catch((err)=>{
+      console.warn(err);
+      alert('Error retrieving post')
+    });
+
+  }, [])
+
+
   return (
     <>
       <Post
