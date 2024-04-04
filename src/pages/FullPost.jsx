@@ -22,6 +22,9 @@ export const FullPost = () => {
     });
 
   }, [])
+  if (isLoading){
+    return <Post isLoading={isLoading}/>;
+  }
 
 
   return (
