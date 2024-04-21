@@ -8,6 +8,43 @@ import Avatar from '@mui/material/Avatar';
 import styles from './Login.module.scss';
 
 export const Registration = () => {
+  const isAuth = useSelector(selectIsAuth)
+
+  const dispatch = useDispatch();
+  const { 
+    register, 
+    handleSubmit, 
+    setError, 
+    formState:{ errors, isValid }, 
+  } = useForm({
+    defaultValues: {
+      fullName: 'Basil  Poupkine',
+      email: 'bpoup@gmail.com',
+      password: '12345' 
+    },
+    mode: "onChange",
+  });
+
+  const onSubmit = async (values) => {
+    const data = await dispatch(fetchAuth(values))
+    if (!data.payload) {
+      alert('Wrong login or password')
+    }
+
+    if ('token' in data.payload) {
+      window.localStorage.setItem('token', data.payload.token)
+    } else {
+      alert('Wrong login or password')
+    }
+
+
+  }
+
+  if (isAuth) {
+    return <Navigate to="/"/>
+  }
+
+  
   return (
     <Paper classes={{ root: styles.root }}>
       <Typography classes={{ root: styles.title }} variant="h5">
