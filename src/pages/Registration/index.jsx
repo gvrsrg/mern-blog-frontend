@@ -5,7 +5,12 @@ import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
 import Avatar from '@mui/material/Avatar';
 
+
 import styles from './Login.module.scss';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchAuth, selectIsAuth } from '../../redux/slices/auth';
+import { Navigate } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
 
 export const Registration = () => {
   const isAuth = useSelector(selectIsAuth)
@@ -44,7 +49,7 @@ export const Registration = () => {
     return <Navigate to="/"/>
   }
 
-  
+
   return (
     <Paper classes={{ root: styles.root }}>
       <Typography classes={{ root: styles.title }} variant="h5">
