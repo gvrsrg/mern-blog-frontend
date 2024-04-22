@@ -58,12 +58,37 @@ export const Registration = () => {
       <div className={styles.avatar}>
         <Avatar sx={{ width: 100, height: 100 }} />
       </div>
-      <TextField className={styles.field} label="Полное имя" fullWidth />
-      <TextField className={styles.field} label="E-Mail" fullWidth />
-      <TextField className={styles.field} label="Пароль" fullWidth />
-      <Button size="large" variant="contained" fullWidth>
-        Зарегистрироваться
-      </Button>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <TextField
+          className={styles.field}
+          label="Full name"
+          error = {errors.fullname ? true : false}
+          helperText= {errors.fullname?.message}
+          type="text"
+          {...register( 'fullName', { required: 'Enter full name' } )}
+          fullWidth
+        />
+        <TextField
+          className={styles.field}
+          label="E-Mail"
+          error = {errors.email ? true : false}
+          helperText= {errors.email?.message}
+          type="email"
+          {...register( 'email', { required: 'Enter email' } )}
+          fullWidth
+        />
+        <TextField 
+          className={styles.field} 
+          label="Password" 
+          error = {errors.passwors ? true : false}
+          helperText= {errors.password?.message}
+          {...register( 'password', { required: 'Enter password' } )}
+          fullWidth 
+        />
+        <Button type='submit' size="large" variant="contained" fullWidth>
+          Зарегистрироваться
+        </Button>
+      </form>
     </Paper>
   );
 };
