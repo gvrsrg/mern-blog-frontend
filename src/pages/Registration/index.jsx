@@ -8,7 +8,7 @@ import Avatar from '@mui/material/Avatar';
 
 import styles from './Login.module.scss';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchAuth, selectIsAuth } from '../../redux/slices/auth';
+import { fetchAuth, fetchRegister, selectIsAuth } from '../../redux/slices/auth';
 import { Navigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 
@@ -31,7 +31,7 @@ export const Registration = () => {
   });
 
   const onSubmit = async (values) => {
-    const data = await dispatch(fetchAuth(values))
+    const data = await dispatch(fetchRegister(values))
     if (!data.payload) {
       alert('Wrong login or password')
     }
@@ -62,8 +62,8 @@ export const Registration = () => {
         <TextField
           className={styles.field}
           label="Full name"
-          error = {errors.fullname ? true : false}
-          helperText= {errors.fullname?.message}
+          error = {errors.fullName ? true : false}
+          helperText= {errors.fullName?.message}
           type="text"
           {...register( 'fullName', { required: 'Enter full name' } )}
           fullWidth
@@ -85,8 +85,8 @@ export const Registration = () => {
           {...register( 'password', { required: 'Enter password' } )}
           fullWidth 
         />
-        <Button type='submit' size="large" variant="contained" fullWidth>
-          Зарегистрироваться
+        <Button disabled={!isValid} type='submit' size="large" variant="contained" fullWidth>
+          Register
         </Button>
       </form>
     </Paper>
