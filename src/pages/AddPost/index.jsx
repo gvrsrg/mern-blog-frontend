@@ -61,7 +61,8 @@ export const AddPost = () => {
 
 
     } catch (error) {
-      console.warn(error);  
+      console.warn(error); 
+      alert('File creation error!') 
       
     }
 
