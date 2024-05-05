@@ -52,7 +52,7 @@ export const AddPost = () => {
         title,
         text,
         imageUrl,
-        tags
+        tags: tags.split(',')
       }
 
       const { data } = await axios.post('/posts', fields)
