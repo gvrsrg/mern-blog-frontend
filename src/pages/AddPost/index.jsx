@@ -8,10 +8,11 @@ import 'easymde/dist/easymde.min.css';
 import styles from './AddPost.module.scss';
 import { useSelector } from 'react-redux';
 import { selectIsAuth } from '../../redux/slices/auth';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate, useParams } from 'react-router-dom';
 import axios from '../../axios';
 
 export const AddPost = () => {
+  const { id } = useParams();
   const navigate = useNavigate();
   const isAuth = useSelector(selectIsAuth)
   const [text, setText] = React.useState('');
@@ -52,7 +53,7 @@ export const AddPost = () => {
         title,
         text,
         imageUrl,
-        tags: tags.split(',')
+        tags
       }
 
       const { data } = await axios.post('/posts', fields)
@@ -67,6 +68,21 @@ export const AddPost = () => {
     }
 
   };
+
+  React.useEffect(() => {
+    if (id) {
+      axios.get(`/posts/${id}`).then(({data}) =>{
+        setTitle(data.title);
+        setText(data.text);
+        setImageUrl(data.imageUrl);
+        setTags(data.tags.join(','));
+      }).catch(err =>{
+        console.log(err);
+      })
+    };
+  }
+
+  )
 
   const options = React.useMemo(
     () => ({
