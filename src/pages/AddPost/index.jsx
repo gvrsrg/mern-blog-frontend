@@ -22,6 +22,7 @@ export const AddPost = () => {
   const [tags, setTags] = React.useState('');
   const inputFileRef = React.useRef(null)
 
+  const isEditing = Boolean(id);
 
   const handleChangeFile = async (event) => {
     try {
@@ -56,9 +57,13 @@ export const AddPost = () => {
         tags
       }
 
-      const { data } = await axios.post('/posts', fields)
-      const id = data._id;
-      navigate(`/posts/${id}`)
+      const { data } = isEditing
+      ?await axios.patch(`/posts/:${id}`, fields)
+      :await axios.post('/posts', fields)
+
+      const _id = isEditing ? id :data._id;
+
+      navigate(`/posts/${_id}`)
 
 
     } catch (error) {
@@ -144,7 +149,7 @@ export const AddPost = () => {
       <SimpleMDE className={styles.editor} value={text} onChange={onChange} options={options} />
       <div className={styles.buttons}>
         <Button onClick={onSubmit} size="large" variant="contained">
-          Post
+          {isEditing ? "Update" : "Post"}
         </Button>
         <a href="/">
           <Button size="large">Cancel</Button>
