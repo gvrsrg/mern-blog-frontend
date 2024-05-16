@@ -58,8 +58,8 @@ export const AddPost = () => {
       }
 
       const { data } = isEditing
-      ?await axios.patch(`/posts/:${id}`, fields)
-      :await axios.post('/posts', fields)
+        ?await axios.patch(`/posts/${id}`, fields)
+        :await axios.post('/posts', fields)
 
       const _id = isEditing ? id :data._id;
 
@@ -85,7 +85,7 @@ export const AddPost = () => {
         console.log(err);
       })
     };
-  }
+  }, []
 
   )
 
