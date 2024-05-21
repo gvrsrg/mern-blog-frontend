@@ -1,8 +1,11 @@
 import axios from 'axios'
 
-const instance = axios.create({
+const baseURL = process.env.BASE_URL;
 //    baseURL: 'http://localhost:4444',
-    baseURL: 'https://mern-3qyu.onrender.com',})
+console.log(baseURL);
+const instance = axios.create({
+
+    baseURL: baseURL,})
 
 instance.interceptors.request.use(config => {
     config.headers.Authorization = window.localStorage.getItem('token') || ''
